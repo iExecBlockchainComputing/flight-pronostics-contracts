@@ -31,7 +31,15 @@ abstract contract Oracle {
         virtual
         returns (string memory, uint256);
 
-    function getInt(bytes32) public view virtual returns (int256, uint256);
+    function getInt(bytes32) 
+        public 
+        view 
+        virtual 
+        returns (int256, uint256);
 
-    function getBool(bytes32) public view virtual returns (bool, uint256);
+    function getBool(bytes32) 
+        public 
+        view 
+        virtual 
+        returns (bool, uint256);
 }
