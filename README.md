@@ -1,3 +1,5 @@
+![Flight pronostics logo](https://user-images.githubusercontent.com/27382420/141027609-e0b06221-b7c6-4389-9c5d-afa6ceeaaf1b.png)
+
 # Advanced Flight Pronostics Hardhat Project
 
 This project demonstrates an advanced Oracle use case, integrating tools commonly used alongside Hardhat in the ecosystem.
