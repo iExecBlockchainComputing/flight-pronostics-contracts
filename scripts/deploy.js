@@ -10,7 +10,7 @@ const main = async () => {
 
   console.log("\n\n 📡 Deploying...\n");
 
-  const oracle = await deploy("Oracle")
+  
   const betting = await deploy("FlightBetting");
   
  
