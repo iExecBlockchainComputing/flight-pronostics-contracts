@@ -16,7 +16,7 @@
  * limitations under the License.                                             *
  ******************************************************************************/
 
-pragma solidity ^0.6.12;
+pragma solidity ^0.8.9;
 
 import "./Oracle.sol";
 
@@ -40,7 +40,7 @@ contract FlightBetting {
     // The address of the player and => the user info
     mapping(address => Player) public playerInfo;
 
-    constructor() public {
+    constructor() {
         minimumBet = 100000000000000;
     }
 
@@ -154,14 +154,41 @@ contract FlightBetting {
     }
 
     function getOracleData() public returns (string memory) {
-        
-        bytes32 oracleId = 0x80264cd4eea1848b0ee4d8ed1ff9cecdf18112eac81e25dd81a63f73ed13a6b6;
-        address oracleAddress = 0x8ecEDdd1377E52d23A46E2bd3dF0aFE35B526D5F;
+        bytes32 oracleId = 0x0384e42694679e4cf4d7848111494c68fd57dcdb9afa011422703cf211b8adb4;
+        address oracleAddress = 0x456891C78077d31F70Ca027a46D68F84a2b814D4;
         Oracle oracleContract = Oracle(oracleAddress);
         (string memory value, uint256 date) = oracleContract.getString(
             oracleId
         );
-        status = value;
+        if (
+            (keccak256(abi.encodePacked(value)) ==
+                keccak256(abi.encodePacked("Unknown"))) ||
+            (keccak256(abi.encodePacked(value)) ==
+                keccak256(abi.encodePacked("Expected"))) ||
+            (keccak256(abi.encodePacked(value)) ==
+                keccak256(abi.encodePacked("EnRoute"))) ||
+            (keccak256(abi.encodePacked(value)) ==
+                keccak256(abi.encodePacked("CheckIn"))) ||
+            (keccak256(abi.encodePacked(value)) ==
+                keccak256(abi.encodePacked("Boarding"))) ||
+            (keccak256(abi.encodePacked(value)) ==
+                keccak256(abi.encodePacked("GateClosed")))
+        ) {
+            status = "scheduled";
+        } else if (
+            (keccak256(abi.encodePacked(value)) ==
+                keccak256(abi.encodePacked("Departed"))) ||
+            (keccak256(abi.encodePacked(value)) ==
+                keccak256(abi.encodePacked("GateClosed")))||
+            (keccak256(abi.encodePacked(value)) ==
+                keccak256(abi.encodePacked("Approaching"))) ||
+            (keccak256(abi.encodePacked(value)) ==
+                keccak256(abi.encodePacked("Arrived")))
+        ) {
+            status = "active";
+        } else {
+            status = value;
+        }
         updatedate = date;
         return value;
     }

@@ -16,7 +16,7 @@
  * limitations under the License.                                             *
  ******************************************************************************/
 
-pragma solidity ^0.6.12;
+pragma solidity ^0.8.9; 
 
 abstract contract Oracle {
     function getRaw(bytes32)
